@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>RADAR TÁCTICO // RECEPTOR RADIAL</title>
+  <title>RADAR TÁCTICO // RECEPTOR RADIAL v3.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
   <style>
@@ -15,24 +15,24 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 16px;
+      padding: 14px;
       overflow-x: hidden;
     }
     .header-title {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       color: #00d2ff;
       letter-spacing: 2px;
       text-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       text-align: center;
     }
     .status-badge {
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.8rem;
-      padding: 4px 14px;
+      font-size: 0.78rem;
+      padding: 4px 12px;
       border-radius: 20px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       border: 1px solid #334155;
       color: #94a3b8;
     }
@@ -41,18 +41,17 @@
       border-color: #10b981;
       background: rgba(16, 185, 129, 0.15);
     }
-    /* RADAR */
     .radar-container {
       position: relative;
-      width: 140px;
-      height: 140px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
       border: 2px solid rgba(0, 210, 255, 0.4);
       box-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       background: radial-gradient(circle, rgba(2, 132, 199, 0.1) 0%, rgba(5, 8, 17, 0.95) 75%);
       overflow: hidden;
     }
@@ -67,15 +66,13 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
-    .radar-icon { font-size: 2rem; position: relative; z-index: 2; }
-
-    /* ECUALIZADOR */
+    .radar-icon { font-size: 1.8rem; position: relative; z-index: 2; }
     .audio-equalizer {
       display: flex;
       gap: 4px;
       align-items: flex-end;
-      height: 26px;
-      margin-bottom: 12px;
+      height: 24px;
+      margin-bottom: 10px;
     }
     .eq-bar {
       width: 5px;
@@ -84,11 +81,11 @@
       animation: eqBounce 0.8s infinite alternate ease-in-out;
     }
     .eq-bar:nth-child(1) { height: 8px; animation-delay: 0.1s; }
-    .eq-bar:nth-child(2) { height: 20px; animation-delay: 0.3s; }
-    .eq-bar:nth-child(3) { height: 26px; animation-delay: 0.15s; background: #ef4444; }
+    .eq-bar:nth-child(2) { height: 18px; animation-delay: 0.3s; }
+    .eq-bar:nth-child(3) { height: 24px; animation-delay: 0.15s; background: #ef4444; }
     .eq-bar:nth-child(4) { height: 14px; animation-delay: 0.4s; }
-    .eq-bar:nth-child(5) { height: 22px; animation-delay: 0.25s; }
-    @keyframes eqBounce { 0% { height: 4px; } 100% { height: 26px; } }
+    .eq-bar:nth-child(5) { height: 20px; animation-delay: 0.25s; }
+    @keyframes eqBounce { 0% { height: 4px; } 100% { height: 24px; } }
 
     .btn-toggle {
       font-family: 'Orbitron', sans-serif;
@@ -100,7 +97,7 @@
       background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
       color: #fff;
       cursor: pointer;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
       width: 100%;
       max-width: 340px;
@@ -110,23 +107,20 @@
       border-color: #f87171;
       box-shadow: 0 0 25px rgba(239, 68, 68, 0.6);
     }
-
-    /* MONITOR DE MODULACIÓN EN VIVO */
     .live-speech-box {
       width: 100%;
       max-width: 440px;
       background: #0d1a30;
-      border: 1px solid #0284c7;
+      border: 1px solid #eab308;
       border-radius: 6px;
       padding: 8px 12px;
       margin-bottom: 10px;
       font-size: 0.85rem;
-      color: #38bdf8;
+      color: #fef08a;
       display: flex;
       flex-direction: column;
       gap: 3px;
     }
-
     .console-box {
       width: 100%;
       max-width: 440px;
@@ -136,25 +130,19 @@
       padding: 10px;
       font-size: 0.8rem;
       min-height: 140px;
-      max-height: 170px;
+      max-height: 180px;
       overflow-y: auto;
       box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
     }
     .log-entry { margin-bottom: 4px; color: #94a3b8; }
     .log-hit-x { color: #34d399; font-weight: bold; }
     .log-hit-r { color: #fbbf24; font-weight: bold; }
-    .catalogo-badge {
-      font-size: 0.75rem;
-      color: #00d2ff;
-      margin-bottom: 8px;
-    }
   </style>
 </head>
 <body>
 
-  <div class="header-title">RADAR RECEPTOR RADIAL</div>
+  <div class="header-title">RADAR RECEPTOR RADIAL v3.0</div>
   <div class="status-badge" id="hudStatus">MICRÓFONO EN ESPERA</div>
-  <div class="catalogo-badge" id="hudCatCount">PUESTOS SINCRONIZADOS: CONECTANDO...</div>
 
   <div class="radar-container">
     <div class="radar-sweep" id="radarSweep" style="display:none;"></div>
@@ -171,14 +159,13 @@
 
   <button class="btn-toggle" id="btnRadar" onclick="toggleRadar()">ACTIVAR ESCUCHA RADIAL</button>
 
-  <!-- CAJA EN VIVO: MUESTRA LO QUE EL MICRÓFONO ESCUCHA EXACTAMENTE -->
   <div class="live-speech-box">
-    <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 700;">ÚLTIMA MODULACIÓN DETECTADA:</span>
+    <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 700;">🎤 MODULACIÓN EN VIVO (LO QUE ESCUCHA EL MIC):</span>
     <span id="txtVozDetectada" style="color: #fef08a; font-weight: bold;">(En silencio)</span>
   </div>
 
   <div class="console-box" id="consoleLogs">
-    <div class="log-entry">> Radar listo. Esperando conexión de puestos...</div>
+    <div class="log-entry">> Radar Maestro v3.0 listo. Decodificador militar activo.</div>
   </div>
 
   <script>
@@ -186,7 +173,6 @@
     let activo = false;
     let ultimosHits = {};
     let audioCtx = null;
-    let puestosCatalogo = [];
 
     function getAudioCtx() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -216,23 +202,6 @@
       box.prepend(div);
     }
 
-    // SINCRONIZAR PUESTOS CON LA PANTALLA PRINCIPAL
-    window.addEventListener('message', function(event) {
-      if (event.data && event.data.tipo === 'CARGAR_PUESTOS') {
-        puestosCatalogo = event.data.puestos || [];
-        document.getElementById('hudCatCount').textContent = `🟢 PUESTOS SINCRONIZADOS: ${puestosCatalogo.length} PUESTOS`;
-        log(`Sincronizados ${puestosCatalogo.length} puestos desde el Centro de Control.`);
-      }
-    });
-
-    function solicitarPuestos() {
-      if (window.opener) {
-        window.opener.postMessage({ tipo: 'PEDIR_PUESTOS' }, '*');
-      }
-    }
-    solicitarPuestos();
-    setInterval(solicitarPuestos, 5000); // Reintentar periódicamente si aún no conecta
-
     function toggleRadar() {
       if (activo) {
         detenerRadar();
@@ -258,11 +227,11 @@
         activo = true;
         document.getElementById('btnRadar').textContent = '🛑 DETENER ESCUCHA';
         document.getElementById('btnRadar').classList.add('active');
-        document.getElementById('hudStatus').textContent = 'EN VIVO // ESCUCHANDO RADIO';
+        document.getElementById('hudStatus').textContent = 'EN VIVO // ESCUCHANDO FRECUENCIA';
         document.getElementById('hudStatus').className = 'status-badge online';
         document.getElementById('radarSweep').style.display = 'block';
         document.getElementById('equalizer').style.display = 'flex';
-        log("Frecuencia radial abierta. Acerque la radio.");
+        log("Frecuencia sintonizada. Acerque la radio.");
       };
 
       recognition.onresult = function(event) {
@@ -278,7 +247,7 @@
       };
 
       recognition.onerror = function(e) {
-        console.warn("Aviso de reconocimiento:", e.error);
+        console.warn("Aviso:", e.error);
       };
 
       recognition.onend = function() {
@@ -305,12 +274,12 @@
       document.getElementById('hudStatus').className = 'status-badge';
       document.getElementById('radarSweep').style.display = 'none';
       document.getElementById('equalizer').style.display = 'none';
-      log("Escucha de radio pausada.");
+      log("Escucha pausada.");
     }
 
-    // MOTOR DE TRADUCCIÓN MILITAR COMPLETO
+    // MOTOR INTELIGENTE DE RECONOCIMIENTO
     function procesarVozRadio(frase) {
-      // 1. Detectar Clave 20-28 (Refrigerio)
+      // 1. Clave 20-28 (Refrigerio)
       const esRefrigerio = frase.includes("20-28") || 
                            frase.includes("20 28") || 
                            frase.includes("veinte veintiocho") || 
@@ -319,9 +288,9 @@
                            frase.includes("almuerzo") || 
                            frase.includes("cena");
 
-      // 2. Normalización de fonética militar y números
+      // 2. Normalización de números y fonética hablada
       let limp = (" " + frase + " ")
-        // Números
+        // Números del 1 al 20 y compuestos
         .replace(/\bcero uno\b|\bprimer\b|\bprimero\b/g, " 1 ")
         .replace(/\bcero dos\b|\bsegundo\b/g, " 2 ")
         .replace(/\bcero tres\b|\btercer\b|\btercero\b/g, " 3 ")
@@ -335,72 +304,64 @@
         .replace(/\bcuatro\b/g, " 4 ").replace(/\bcinco\b/g, " 5 ").replace(/\bseis\b/g, " 6 ")
         .replace(/\bsiete\b/g, " 7 ").replace(/\bocho\b/g, " 8 ").replace(/\bnueve\b/g, " 9 ")
         .replace(/\bdiez\b/g, " 10 ").replace(/\bonce\b/g, " 11 ").replace(/\bdoce\b/g, " 12 ")
+        .replace(/\btrece\b/g, " 13 ").replace(/\bcatorce\b/g, " 14 ").replace(/\bquince\b/g, " 15 ")
+        .replace(/\bdieciseis\b|\bdiecis\u00e9is\b/g, " 16 ").replace(/\bdiecisiete\b/g, " 17 ")
+        .replace(/\bdieciocho\b/g, " 18 ").replace(/\bdiecinueve\b/g, " 19 ").replace(/\bveinte\b/g, " 20 ")
         // Alfabeto OTAN
         .replace(/\balfa\b|\balpha\b/g, " a ")
         .replace(/\bbravo\b/g, " b ")
         .replace(/\bcharly\b|\bcharlie\b|\bcharli\b/g, " c ")
         .replace(/\bdelta\b/g, " d ")
         .replace(/\becho\b|\beco\b/g, " e ")
-        .replace(/\bfoxtrot\b|\bfox\b/g, " f ")
-        .replace(/\bgolf\b/g, " g ")
-        .replace(/\bhotel\b/g, " h ")
-        .replace(/\bindia\b/g, " i ")
-        .replace(/\bkilo\b/g, " k ")
-        .replace(/\blima\b/g, " l ")
-        .replace(/\bmike\b|\bmaik\b/g, " m ")
-        .replace(/\bnovember\b|\bnoviembre\b/g, " n ")
-        .replace(/\boscar\b/g, " o ")
-        .replace(/\bpapa\b/g, " p ")
-        .replace(/\bquebec\b/g, " q ")
-        .replace(/\bromeo\b/g, " r ")
-        .replace(/\bsierra\b/g, " s ")
-        .replace(/\btango\b/g, " tango ")
-        .replace(/\bvictor\b/g, " v ")
-        .replace(/\bwhiskey\b|\bwhisky\b/g, " w ")
-        .replace(/\bxray\b|\bx-ray\b/g, " x ")
         .replace(/\byankee\b|\byanki\b|\byanky\b|\bianqui\b/g, " yanki ")
-        .replace(/\bsulu\b|\bzulo\b|\bsulú\b/g, " zulu ")
+        .replace(/\bsulu\b|\bzulo\b|\bsul\u00fa\b/g, " zulu ")
         .replace(/\s+/g, " ")
         .trim();
 
-      const ahora = Date.now();
+      // Formato compacto sin espacios para comparaciones (ej: "tango8", "yanki3a", "tango16")
       const limpCompacta = limp.replace(/[^a-z0-9]/g, "");
 
-      // 3. Evaluar contra los puestos reales sincronizados
-      puestosCatalogo.forEach(p => {
-        let indSimple = (p.indicativo || '').toLowerCase().replace(/[^a-z0-9]/g, "")
+      // 3. CATÁLOGO COMPLETO DE PATRONES DE TU PUERTO
+      const catalogoPatrones = [
+        // TANGOS (1 al 20)
+        "TANGO 1", "TANGO 2", "TANGO 3", "TANGO 4", "TANGO 5",
+        "TANGO 6", "TANGO 7", "TANGO 8", "TANGO 9", "TANGO 10",
+        "TANGO 11", "TANGO 12", "TANGO 13", "TANGO 14", "TANGO 15",
+        "TANGO 16", "TANGO 17", "TANGO 18", "TANGO 19", "TANGO 20",
+        // YANKIS (con letras y números)
+        "YANKI 1", "YANKI 2", "YANKI 2A", "YANKI 2 ALFA", "YANKI 3", "YANKI 3A", "YANKI 4",
+        // ORION
+        "ORION A", "ORION B", "ORION C", "ORION D",
+        // ZULU
+        "ZULU 1", "ZULU 2",
+        // ACCESOS, BALANZAS Y OTROS
+        "ACCESOS 02", "ACCESOS DOCUMENTACION 1", "ACCESOS DOCUMENTACION 2",
+        "ACCESOS INGRESOS", "ACCESOS", "COORDINADOR PROSEGUR",
+        "SUR", "CENTRO", "NORTE", "BALANZA 1", "BALANZA 2", "BALANZA 3"
+      ];
+
+      const ahora = Date.now();
+
+      catalogoPatrones.forEach(patron => {
+        let patronSimple = patron.toLowerCase().replace(/[^a-z0-9]/g, "")
           .replace(/yankee|yanky/g, "yanki")
           .replace(/sulu|zulo/g, "zulu");
 
-        let puestoSimple = (p.puesto || '').toLowerCase().replace(/[^a-z0-9]/g, "")
-          .replace(/yankee|yanky/g, "yanki")
-          .replace(/sulu|zulo/g, "zulu");
-
-        let match = false;
-
-        // Búsqueda inteligente por indicativo exacto o contenido en modulación
-        if (indSimple && (limpCompacta.includes(indSimple) || indSimple.includes(limpCompacta))) {
-          if (indSimple.length >= 2) match = true;
-        } else if (puestoSimple.includes("coordinadorprosegur") && limpCompacta.includes("coordinador")) {
-          match = true;
-        } else if (indSimple && limp.includes((p.indicativo || '').toLowerCase())) {
-          match = true;
-        }
-
-        if (match) {
-          if (ultimosHits[p.idx] && (ahora - ultimosHits[p.idx] < 3500)) return;
-          ultimosHits[p.idx] = ahora;
+        // Si la frase contiene el patrón (ej: "tango8" está dentro de "tango8adelantepresente")
+        if (limpCompacta.includes(patronSimple)) {
+          if (ultimosHits[patronSimple] && (ahora - ultimosHits[patronSimple] < 3500)) return;
+          ultimosHits[patronSimple] = ahora;
 
           beep();
           const valor = esRefrigerio ? 'R' : 'X';
-          log(`🎯 CAPTADO: ${p.puesto} ➔ [${valor}]`, esRefrigerio ? 'log-hit-r' : 'log-hit-x');
+          log(`🎯 RECONOCIDO: ${patron} ➔ [${valor}]`, esRefrigerio ? 'log-hit-r' : 'log-hit-x');
 
-          // Enviar orden a Google Apps Script
+          // Enviar señal a Google Apps Script
           if (window.opener) {
             window.opener.postMessage({
-              tipo: 'HIT_RADIO_EXACTO',
-              idx: p.idx,
-              valor: valor
+              tipo: 'HIT_RADIO_PATRON',
+              patron: patron,
+              esRefrigerio: esRefrigerio
             }, '*');
           }
         }

@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>RADAR TÁCTICO // OÍDO FINO v5.0</title>
+  <title>RADAR TÁCTICO // OÍDO INTUITIVO v6.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
   <style>
@@ -137,8 +137,8 @@
 </head>
 <body>
 
-  <div class="header-title">RADAR RECEPTOR RADIAL v5.0</div>
-  <div class="status-badge" id="hudStatus">SISTEMA EN VIVO // OÍDO FINO ACTIVO</div>
+  <div class="header-title">RADAR RECEPTOR RADIAL v6.0</div>
+  <div class="status-badge" id="hudStatus">OÍDO ULTRA-INTUITIVO ACTIVO</div>
 
   <div class="radar-container">
     <div class="radar-sweep" id="radarSweep" style="display:none;"></div>
@@ -161,7 +161,7 @@
   </div>
 
   <div class="console-box" id="consoleLogs">
-    <div class="log-entry">> Radar v5.0 listo con transmisor dual activo.</div>
+    <div class="log-entry">> Radar v6.0 listo con transmisor multi-nivel.</div>
   </div>
 
   <script>
@@ -225,7 +225,7 @@
         document.getElementById('btnRadar').classList.add('active');
         document.getElementById('radarSweep').style.display = 'block';
         document.getElementById('equalizer').style.display = 'flex';
-        log("Frecuencia radial abierta. Modulando...");
+        log("Frecuencia radial activa. Acerque la radio.");
       };
 
       recognition.onresult = function(event) {
@@ -243,7 +243,7 @@
         const texto = (textoFinal || textoInterim).trim();
         if (texto) {
           document.getElementById('txtVozDetectada').textContent = `"${texto.toUpperCase()}"`;
-          procesarVozRadio(texto.toLowerCase());
+          procesarVozUltraIntuitiva(texto.toLowerCase());
         }
       };
 
@@ -277,29 +277,31 @@
     }
 
     // =======================================================================
-    // MOTOR DE OÍDO FINO CON CORRECCIÓN FONÉTICA RADIAL
+    // MOTOR DE DEDUCCIÓN FONÉTICA ULTRA-INTUITIVA
     // =======================================================================
-    function procesarVozRadio(fraseOriginal) {
+    function procesarVozUltraIntuitiva(fraseOriginal) {
       // 1. Clave 20-28 (Refrigerio)
       const esRefrigerio = /20[- ]?28|veinte\s*veintiocho|veinte\s*28|refrigerio|almuerzo|cena/.test(fraseOriginal);
 
       let t = (" " + fraseOriginal.toLowerCase() + " ");
 
-      // 2. CORREGIR PALABRAS QUE EL MIC CONFUNDE POR DISTORSIÓN DE RADIO
+      // 2. CORREGIR CORTES Y DISTORSIONES TÍPICAS DE LA RADIO
       t = t
-        // Confusiones comunes de TANGO
-        .replace(/\btengo\b|\btambo\b|\bdango\b|\btando\b|\btanke\b|\btanques\b|\btaco\b/g, " tango ")
-        // Confusiones comunes de YANKI
-        .replace(/\bllanqui\b|\bllanki\b|\byankee\b|\bianqui\b|\byanky\b/g, " yanki ")
-        // Confusiones comunes de ZULU
-        .replace(/\bsulu\b|\bzulo\b|\bsulú\b|\bsolo\b/g, " zulu ");
+        // "gol", "col", "gof", "wolf" -> GOLF (Soluciona tu "GOL 2 GOL 3")
+        .replace(/\bgol\b|\bgolf\b|\bcol\b|\bgof\b|\bcolf\b|\bwolf\b|\bbol\b/g, " golf ")
+        // Confusiones de TANGO
+        .replace(/\btengo\b|\btambo\b|\bdango\b|\btando\b|\btanke\b|\btanques\b|\btaco\b|\btanco\b/g, " tango ")
+        // Confusiones de YANKI
+        .replace(/\bllanqui\b|\bllanki\b|\byankee\b|\bianqui\b|\byanky\b|\byanke\b/g, " yanki ")
+        // Confusiones de ZULU
+        .replace(/\bsulu\b|\bzulo\b|\bsulú\b|\bsolo\b|\bzooloo\b/g, " zulu ")
+        // Confusiones de ORION
+        .replace(/\borion\b|\borión\b|\borio\b|\bolion\b/g, " orion ")
+        // Confusiones de FOXTROT
+        .replace(/\bfox\b|\bfoxtro\b|\bfoxtron\b|\bfoc\b/g, " foxtrot ");
 
-      // 3. DESPEGAR PALABRAS Y NÚMEROS PEGADOS
-      const prefijos = [
-        "zulu", "tango", "orion", "yanki", "golf", "foxtrot",
-        "alfa", "bravo", "charly", "delta", "accesos", "balanza", "muelle"
-      ];
-
+      // 3. DESPEGAR NÚMEROS Y PALABRAS PEGADAS
+      const prefijos = ["golf", "tango", "yanki", "zulu", "orion", "foxtrot", "accesos", "balanza"];
       prefijos.forEach(p => {
         const reg = new RegExp("(" + p + ")(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieciseis|diecisiete|dieciocho|diecinueve|veinte|[0-9]+|[a-z])", "gi");
         t = t.replace(reg, "$1 $2");
@@ -308,7 +310,7 @@
       // Despegar números y letras (ej: 3a -> 3 a, 1a -> 1 a)
       t = t.replace(/(\d+)([a-z]+)/gi, "$1 $2").replace(/([a-z]+)(\d+)/gi, "$1 $2");
 
-      // 4. MAPEO DE NÚMEROS
+      // 4. MAPEAR NÚMEROS HABLADOS A DÍGITOS
       const mapaNumeros = {
         "cero uno": "1", "primero": "1", "primer": "1", "uno": "1",
         "cero dos": "2", "segundo": "2", "dos": "2",
@@ -328,63 +330,78 @@
         t = t.replace(new RegExp("\\b" + pal + "\\b", "gi"), " " + num + " ");
       }
 
-      // 5. MAPEO OTAN
+      // 5. MAPEAR LETRAS OTAN
       const mapaOtan = {
-        "alfa": "A", "alpha": "A", "bravo": "B",
-        "charly": "C", "charlie": "C", "charli": "C", "delta": "D",
-        "foxtrot": "FOXTROT", "fox": "FOXTROT", "golf": "GOLF"
+        "alfa": "A", "alpha": "A", "bravo": "B", "charly": "C", "charlie": "C",
+        "delta": "D", "erre": "R"
       };
-
       for (const [otan, letra] of Object.entries(mapaOtan)) {
         t = t.replace(new RegExp("\\b" + otan + "\\b", "gi"), " " + letra + " ");
       }
 
-      const compacta = t.toUpperCase().replace(/[^A-Z0-9]/g, "");
+      t = t.replace(/\s+/g, " ").toUpperCase().trim();
 
-      // 6. CATÁLOGO DE PATRONES DE PUESTOS
-      const patrones = [
-        "ZULU 1", "ZULU 2",
-        "TANGO 1", "TANGO 2", "TANGO 3", "TANGO 4", "TANGO 5",
-        "TANGO 6", "TANGO 7", "TANGO 8", "TANGO 9", "TANGO 10",
-        "TANGO 11", "TANGO 12", "TANGO 13", "TANGO 14", "TANGO 15",
-        "TANGO 16", "TANGO 17", "TANGO 18", "TANGO 19", "TANGO 20",
-        "GOLF 1A", "GOLF R", "GOLF", "FOXTROT",
-        "YANKI 1", "YANKI 2", "YANKI 2A", "YANKI 2 ALFA", "YANKI 3", "YANKI 3A", "YANKI 4",
-        "ORION A", "ORION B", "ORION C", "ORION D",
-        "ACCESOS 02", "ACCESOS DOCUMENTACION 1", "ACCESOS DOCUMENTACION 2",
-        "ACCESOS INGRESOS", "ACCESOS", "COORDINADOR PROSEGUR",
-        "SUR", "CENTRO", "NORTE"
-      ];
+      // 6. DETECTOR DE MÚLTIPLES PUESTOS EN UNA SOLA MODULACIÓN
+      // Ej: "GOLF 2 GOLF 3" detecta ambos
+      const regexScan = /\b(GOLF|TANGO|YANKI|ZULU|ORION|FOXTROT)\s*(\d+[A-Z]*|[A-Z]|\b)/gi;
+      let match;
+      let encontrados = [];
+
+      while ((match = regexScan.exec(t)) !== null) {
+        const palabra = match[1].trim();
+        const sufijo = match[2] ? match[2].trim() : "";
+        const patronCompleto = (palabra + " " + sufijo).trim();
+        encontrados.push(patronCompleto);
+      }
+
+      // Casos específicos sin sufijo (ej: "FOXTROT", "GOLF", "COORDINADOR PROSEGUR", "ACCESOS 02")
+      if (t.includes("COORDINADOR")) encontrados.push("COORDINADOR PROSEGUR");
+      if (t.includes("ACCESOS 02") || t.includes("ACCESOS 2")) encontrados.push("ACCESOS 02");
+      if (t.includes("DOCUMENTACION 1") || t.includes("DOCUMENTACION 01")) encontrados.push("DOCUMENTACION 1");
+      if (t.includes("DOCUMENTACION 2") || t.includes("DOCUMENTACION 02")) encontrados.push("DOCUMENTACION 2");
+      if (t.includes("INGRESOS")) encontrados.push("INGRESOS");
 
       const ahora = Date.now();
 
-      patrones.forEach(patron => {
-        const pComp = patron.replace(/[^A-Z0-9]/g, "");
+      encontrados.forEach(patron => {
+        const pKey = patron.replace(/[^A-Z0-9]/g, "");
+        if (pKey.length < 2) return;
 
-        if (compacta.includes(pComp)) {
-          if (ultimosHits[pComp] && (ahora - ultimosHits[pComp] < 3500)) return;
-          ultimosHits[pComp] = ahora;
+        if (ultimosHits[pKey] && (ahora - ultimosHits[pKey] < 3500)) return;
+        ultimosHits[pKey] = ahora;
 
-          beep();
-          const valor = esRefrigerio ? 'R' : 'X';
-          log(`🎯 RECONOCIDO: ${patron} ➔ [${valor}]`, esRefrigerio ? 'log-hit-r' : 'log-hit-x');
+        beep();
+        const valor = esRefrigerio ? 'R' : 'X';
+        log(`🎯 RECONOCIDO: ${patron} ➔ [${valor}]`, esRefrigerio ? 'log-hit-r' : 'log-hit-x');
 
-          // TRANSMISIÓN MULTI-CANAL PARA ATRAVESAR EL IFRAME DE GOOGLE
-          const payload = {
-            tipo: 'HIT_RADIO_PATRON',
-            patron: patron,
-            esRefrigerio: esRefrigerio,
-            ts: ahora
-          };
+        // =======================================================================
+        // TRANSMISOR MULTI-NIVEL RECURSIVO (PENETRA TODOS LOS IFRAMES DE GOOGLE)
+        // =======================================================================
+        const payload = {
+          tipo: 'HIT_RADIO_PATRON',
+          patron: patron,
+          esRefrigerio: esRefrigerio,
+          ts: ahora
+        };
 
-          // Canal 1: postMessage directo
-          if (window.opener) {
-            window.opener.postMessage(payload, '*');
-          }
-          // Canal 2: postMessage a marcos internos
-          if (window.opener && window.opener.frames) {
+        if (window.opener && !window.opener.closed) {
+          // Nivel 0: ventana principal
+          try { window.opener.postMessage(payload, '*'); } catch(e) {}
+
+          // Nivel 1: sandboxFrame
+          if (window.opener.frames) {
             for (let i = 0; i < window.opener.frames.length; i++) {
-              try { window.opener.frames[i].postMessage(payload, '*'); } catch(e) {}
+              try {
+                const f1 = window.opener.frames[i];
+                f1.postMessage(payload, '*');
+
+                // Nivel 2: userHtmlFrame (aquí vive tu tabla)
+                if (f1.frames) {
+                  for (let j = 0; j < f1.frames.length; j++) {
+                    try { f1.frames[j].postMessage(payload, '*'); } catch(e) {}
+                  }
+                }
+              } catch(e) {}
             }
           }
         }

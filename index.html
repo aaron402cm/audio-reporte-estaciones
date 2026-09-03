@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>RADAR TÁCTICO // RECEPTOR RADIAL v3.0</title>
+  <title>RADAR TÁCTICO // OÍDO FINO v4.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
   <style>
@@ -33,12 +33,8 @@
       padding: 4px 12px;
       border-radius: 20px;
       margin-bottom: 10px;
-      border: 1px solid #334155;
-      color: #94a3b8;
-    }
-    .status-badge.online {
+      border: 1px solid #10b981;
       color: #34d399;
-      border-color: #10b981;
       background: rgba(16, 185, 129, 0.15);
     }
     .radar-container {
@@ -135,14 +131,14 @@
       box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
     }
     .log-entry { margin-bottom: 4px; color: #94a3b8; }
-    .log-hit-x { color: #34d399; font-weight: bold; }
-    .log-hit-r { color: #fbbf24; font-weight: bold; }
+    .log-hit-x { color: #34d399; font-weight: bold; font-size: 0.85rem; }
+    .log-hit-r { color: #fbbf24; font-weight: bold; font-size: 0.85rem; }
   </style>
 </head>
 <body>
 
-  <div class="header-title">RADAR RECEPTOR RADIAL v3.0</div>
-  <div class="status-badge" id="hudStatus">MICRÓFONO EN ESPERA</div>
+  <div class="header-title">RADAR RECEPTOR RADIAL v4.0</div>
+  <div class="status-badge" id="hudStatus">SISTEMA EN VIVO // OÍDO FINO ACTIVO</div>
 
   <div class="radar-container">
     <div class="radar-sweep" id="radarSweep" style="display:none;"></div>
@@ -160,12 +156,12 @@
   <button class="btn-toggle" id="btnRadar" onclick="toggleRadar()">ACTIVAR ESCUCHA RADIAL</button>
 
   <div class="live-speech-box">
-    <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 700;">🎤 MODULACIÓN EN VIVO (LO QUE ESCUCHA EL MIC):</span>
+    <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 700;">🎤 MODULACIÓN EN VIVO:</span>
     <span id="txtVozDetectada" style="color: #fef08a; font-weight: bold;">(En silencio)</span>
   </div>
 
   <div class="console-box" id="consoleLogs">
-    <div class="log-entry">> Radar Maestro v3.0 listo. Decodificador militar activo.</div>
+    <div class="log-entry">> Radar v4.0 listo con separador de palabras pegadas.</div>
   </div>
 
   <script>
@@ -227,19 +223,24 @@
         activo = true;
         document.getElementById('btnRadar').textContent = '🛑 DETENER ESCUCHA';
         document.getElementById('btnRadar').classList.add('active');
-        document.getElementById('hudStatus').textContent = 'EN VIVO // ESCUCHANDO FRECUENCIA';
-        document.getElementById('hudStatus').className = 'status-badge online';
         document.getElementById('radarSweep').style.display = 'block';
         document.getElementById('equalizer').style.display = 'flex';
         log("Frecuencia sintonizada. Acerque la radio.");
       };
 
       recognition.onresult = function(event) {
-        let texto = '';
+        let textoFinal = '';
+        let textoInterim = '';
+
         for (let i = event.resultIndex; i < event.results.length; ++i) {
-          texto += event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            textoFinal += event.results[i][0].transcript;
+          } else {
+            textoInterim += event.results[i][0].transcript;
+          }
         }
-        texto = texto.trim();
+
+        const texto = (textoFinal || textoInterim).trim();
         if (texto) {
           document.getElementById('txtVozDetectada').textContent = `"${texto.toUpperCase()}"`;
           procesarVozRadio(texto.toLowerCase());
@@ -270,71 +271,102 @@
       }
       document.getElementById('btnRadar').textContent = 'ACTIVAR ESCUCHA RADIAL';
       document.getElementById('btnRadar').classList.remove('active');
-      document.getElementById('hudStatus').textContent = 'RADAR DETENIDO';
-      document.getElementById('hudStatus').className = 'status-badge';
       document.getElementById('radarSweep').style.display = 'none';
       document.getElementById('equalizer').style.display = 'none';
       log("Escucha pausada.");
     }
 
-    // MOTOR INTELIGENTE DE RECONOCIMIENTO
-    function procesarVozRadio(frase) {
-      // 1. Clave 20-28 (Refrigerio)
-      const esRefrigerio = frase.includes("20-28") || 
-                           frase.includes("20 28") || 
-                           frase.includes("veinte veintiocho") || 
-                           frase.includes("veinte 28") || 
-                           frase.includes("refrigerio") || 
-                           frase.includes("almuerzo") || 
-                           frase.includes("cena");
+    // =======================================================================
+    // MOTOR DE OÍDO FINO Y DESPEGADOR DE PALABRAS
+    // =======================================================================
+    function procesarVozRadio(fraseOriginal) {
+      // 1. Detectar Clave 20-28 (Refrigerio)
+      const esRefrigerio = /20[- ]?28|veinte\s*veintiocho|veinte\s*28|refrigerio|almuerzo|cena/.test(fraseOriginal);
 
-      // 2. Normalización de números y fonética hablada
-      let limp = (" " + frase + " ")
-        // Números del 1 al 20 y compuestos
-        .replace(/\bcero uno\b|\bprimer\b|\bprimero\b/g, " 1 ")
-        .replace(/\bcero dos\b|\bsegundo\b/g, " 2 ")
-        .replace(/\bcero tres\b|\btercer\b|\btercero\b/g, " 3 ")
-        .replace(/\bcero cuatro\b/g, " 4 ")
-        .replace(/\bcero cinco\b/g, " 5 ")
-        .replace(/\bcero seis\b/g, " 6 ")
-        .replace(/\bcero siete\b/g, " 7 ")
-        .replace(/\bcero ocho\b/g, " 8 ")
-        .replace(/\bcero nueve\b/g, " 9 ")
-        .replace(/\buno\b/g, " 1 ").replace(/\bdos\b/g, " 2 ").replace(/\btres\b/g, " 3 ")
-        .replace(/\bcuatro\b/g, " 4 ").replace(/\bcinco\b/g, " 5 ").replace(/\bseis\b/g, " 6 ")
-        .replace(/\bsiete\b/g, " 7 ").replace(/\bocho\b/g, " 8 ").replace(/\bnueve\b/g, " 9 ")
-        .replace(/\bdiez\b/g, " 10 ").replace(/\bonce\b/g, " 11 ").replace(/\bdoce\b/g, " 12 ")
-        .replace(/\btrece\b/g, " 13 ").replace(/\bcatorce\b/g, " 14 ").replace(/\bquince\b/g, " 15 ")
-        .replace(/\bdieciseis\b|\bdiecis\u00e9is\b/g, " 16 ").replace(/\bdiecisiete\b/g, " 17 ")
-        .replace(/\bdieciocho\b/g, " 18 ").replace(/\bdiecinueve\b/g, " 19 ").replace(/\bveinte\b/g, " 20 ")
-        // Alfabeto OTAN
-        .replace(/\balfa\b|\balpha\b/g, " a ")
-        .replace(/\bbravo\b/g, " b ")
-        .replace(/\bcharly\b|\bcharlie\b|\bcharli\b/g, " c ")
-        .replace(/\bdelta\b/g, " d ")
-        .replace(/\becho\b|\beco\b/g, " e ")
-        .replace(/\byankee\b|\byanki\b|\byanky\b|\bianqui\b/g, " yanki ")
-        .replace(/\bsulu\b|\bzulo\b|\bsul\u00fa\b/g, " zulu ")
-        .replace(/\s+/g, " ")
-        .trim();
+      let t = (" " + fraseOriginal.toLowerCase() + " ");
 
-      // Formato compacto sin espacios para comparaciones (ej: "tango8", "yanki3a", "tango16")
-      const limpCompacta = limp.replace(/[^a-z0-9]/g, "");
+      // 2. DESPEGAR PALABRAS MILITARES CUANDO SE HABLA RÁPIDO
+      // Ej: "zuludos" -> "zulu dos", "tangoocho" -> "tango ocho", "golfunoa" -> "golf 1 a"
+      const prefijos = [
+        "zulu", "sulu", "zulo", "tango", "orion", "yanki", "yankee", "yanky",
+        "golf", "foxtrot", "alfa", "alpha", "bravo", "charly", "charlie", "delta",
+        "accesos", "balanza", "muelle"
+      ];
 
-      // 3. CATÁLOGO COMPLETO DE PATRONES DE TU PUERTO
-      const catalogoPatrones = [
+      prefijos.forEach(p => {
+        // Separa si viene pegado a números o letras (ej: zuludos -> zulu dos)
+        const reg = new RegExp("(" + p + ")(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieciseis|diecisiete|dieciocho|diecinueve|veinte|[0-9]+|[a-z])", "gi");
+        t = t.replace(reg, "$1 $2");
+      });
+
+      // Separa letras de números (ej: 3a -> 3 a, 1a -> 1 a, 2alfa -> 2 alfa)
+      t = t.replace(/(\d+)([a-z]+)/gi, "$1 $2").replace(/([a-z]+)(\d+)/gi, "$1 $2");
+
+      // 3. MAPEO DE NÚMEROS A DÍGITOS
+      const mapaNumeros = {
+        "cero uno": "1", "primero": "1", "primer": "1", "uno": "1",
+        "cero dos": "2", "segundo": "2", "dos": "2",
+        "cero tres": "3", "tercero": "3", "tercer": "3", "tres": "3",
+        "cero cuatro": "4", "cuarto": "4", "cuatro": "4",
+        "cero cinco": "5", "quinto": "5", "cinco": "5",
+        "cero seis": "6", "sexto": "6", "seis": "6",
+        "cero siete": "7", "septimo": "7", "séptimo": "7", "siete": "7",
+        "cero ocho": "8", "octavo": "8", "ocho": "8",
+        "cero nueve": "9", "noveno": "9", "nueve": "9",
+        "diez": "10", "once": "11", "doce": "12", "trece": "13", "catorce": "14",
+        "quince": "15", "dieciseis": "16", "dieciséis": "16", "diecisiete": "17",
+        "dieciocho": "18", "diecinueve": "19", "veinte": "20"
+      };
+
+      for (const [pal, num] of Object.entries(mapaNumeros)) {
+        t = t.replace(new RegExp("\\b" + pal + "\\b", "gi"), " " + num + " ");
+      }
+
+      // 4. MAPEO FONÉTICO OTAN
+      const mapaOtan = {
+        "alfa": "A", "alpha": "A",
+        "bravo": "B",
+        "charly": "C", "charlie": "C", "charli": "C",
+        "delta": "D",
+        "echo": "E", "eco": "E",
+        "foxtrot": "FOXTROT", "fox": "FOXTROT",
+        "golf": "GOLF",
+        "hotel": "H",
+        "india": "I",
+        "oscar": "O",
+        "papa": "P",
+        "sierra": "S",
+        "tango": "TANGO",
+        "victor": "V",
+        "yankee": "YANKI", "yanky": "YANKI", "ianqui": "YANKI", "yanki": "YANKI",
+        "sulu": "ZULU", "zulo": "ZULU", "sulú": "ZULU", "zulu": "ZULU"
+      };
+
+      for (const [otan, letra] of Object.entries(mapaOtan)) {
+        t = t.replace(new RegExp("\\b" + otan + "\\b", "gi"), " " + letra + " ");
+      }
+
+      // Cadena compacta limpia para cruzar contra cualquier patrón (ej: "ZULU2", "TANGO8", "GOLF1A", "GOLFR")
+      const compacta = t.toUpperCase().replace(/[^A-Z0-9]/g, "");
+
+      // 5. CATÁLOGO MAESTRO DE PATRONES (CUBRE TODA TU TABLA)
+      const patrones = [
+        // ZULUS
+        "ZULU 1", "ZULU 2",
         // TANGOS (1 al 20)
         "TANGO 1", "TANGO 2", "TANGO 3", "TANGO 4", "TANGO 5",
         "TANGO 6", "TANGO 7", "TANGO 8", "TANGO 9", "TANGO 10",
         "TANGO 11", "TANGO 12", "TANGO 13", "TANGO 14", "TANGO 15",
         "TANGO 16", "TANGO 17", "TANGO 18", "TANGO 19", "TANGO 20",
-        // YANKIS (con letras y números)
+        // GOLF (Filas 46, 47, 50)
+        "GOLF 1A", "GOLF R", "GOLF",
+        // FOXTROT (Fila 49)
+        "FOXTROT",
+        // YANKIS
         "YANKI 1", "YANKI 2", "YANKI 2A", "YANKI 2 ALFA", "YANKI 3", "YANKI 3A", "YANKI 4",
         // ORION
         "ORION A", "ORION B", "ORION C", "ORION D",
-        // ZULU
-        "ZULU 1", "ZULU 2",
-        // ACCESOS, BALANZAS Y OTROS
+        // ACCESOS, BALANZAS Y MUELLES
         "ACCESOS 02", "ACCESOS DOCUMENTACION 1", "ACCESOS DOCUMENTACION 2",
         "ACCESOS INGRESOS", "ACCESOS", "COORDINADOR PROSEGUR",
         "SUR", "CENTRO", "NORTE", "BALANZA 1", "BALANZA 2", "BALANZA 3"
@@ -342,21 +374,18 @@
 
       const ahora = Date.now();
 
-      catalogoPatrones.forEach(patron => {
-        let patronSimple = patron.toLowerCase().replace(/[^a-z0-9]/g, "")
-          .replace(/yankee|yanky/g, "yanki")
-          .replace(/sulu|zulo/g, "zulu");
+      patrones.forEach(patron => {
+        const pComp = patron.replace(/[^A-Z0-9]/g, "");
 
-        // Si la frase contiene el patrón (ej: "tango8" está dentro de "tango8adelantepresente")
-        if (limpCompacta.includes(patronSimple)) {
-          if (ultimosHits[patronSimple] && (ahora - ultimosHits[patronSimple] < 3500)) return;
-          ultimosHits[patronSimple] = ahora;
+        if (compacta.includes(pComp)) {
+          if (ultimosHits[pComp] && (ahora - ultimosHits[pComp] < 3500)) return;
+          ultimosHits[pComp] = ahora;
 
           beep();
           const valor = esRefrigerio ? 'R' : 'X';
           log(`🎯 RECONOCIDO: ${patron} ➔ [${valor}]`, esRefrigerio ? 'log-hit-r' : 'log-hit-x');
 
-          // Enviar señal a Google Apps Script
+          // ENVIAR SEÑAL A GOOGLE APPS SCRIPT
           if (window.opener) {
             window.opener.postMessage({
               tipo: 'HIT_RADIO_PATRON',

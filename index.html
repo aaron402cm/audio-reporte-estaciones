@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>RADAR TÁCTICO // OÍDO FINO v4.0</title>
+  <title>RADAR TÁCTICO // OÍDO FINO v5.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
   <style>
@@ -32,22 +32,22 @@
       font-size: 0.78rem;
       padding: 4px 12px;
       border-radius: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       border: 1px solid #10b981;
       color: #34d399;
       background: rgba(16, 185, 129, 0.15);
     }
     .radar-container {
       position: relative;
-      width: 130px;
-      height: 130px;
+      width: 125px;
+      height: 125px;
       border-radius: 50%;
       border: 2px solid rgba(0, 210, 255, 0.4);
       box-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       background: radial-gradient(circle, rgba(2, 132, 199, 0.1) 0%, rgba(5, 8, 17, 0.95) 75%);
       overflow: hidden;
     }
@@ -67,8 +67,8 @@
       display: flex;
       gap: 4px;
       align-items: flex-end;
-      height: 24px;
-      margin-bottom: 10px;
+      height: 22px;
+      margin-bottom: 8px;
     }
     .eq-bar {
       width: 5px;
@@ -78,22 +78,22 @@
     }
     .eq-bar:nth-child(1) { height: 8px; animation-delay: 0.1s; }
     .eq-bar:nth-child(2) { height: 18px; animation-delay: 0.3s; }
-    .eq-bar:nth-child(3) { height: 24px; animation-delay: 0.15s; background: #ef4444; }
+    .eq-bar:nth-child(3) { height: 22px; animation-delay: 0.15s; background: #ef4444; }
     .eq-bar:nth-child(4) { height: 14px; animation-delay: 0.4s; }
     .eq-bar:nth-child(5) { height: 20px; animation-delay: 0.25s; }
-    @keyframes eqBounce { 0% { height: 4px; } 100% { height: 24px; } }
+    @keyframes eqBounce { 0% { height: 4px; } 100% { height: 22px; } }
 
     .btn-toggle {
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 900;
-      padding: 12px 20px;
+      padding: 10px 18px;
       border-radius: 6px;
       border: 1px solid #00d2ff;
       background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
       color: #fff;
       cursor: pointer;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
       width: 100%;
       max-width: 340px;
@@ -110,8 +110,8 @@
       border: 1px solid #eab308;
       border-radius: 6px;
       padding: 8px 12px;
-      margin-bottom: 10px;
-      font-size: 0.85rem;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
       color: #fef08a;
       display: flex;
       flex-direction: column;
@@ -124,20 +124,20 @@
       border: 1px solid #1e3a5f;
       border-radius: 6px;
       padding: 10px;
-      font-size: 0.8rem;
-      min-height: 140px;
-      max-height: 180px;
+      font-size: 0.78rem;
+      min-height: 130px;
+      max-height: 160px;
       overflow-y: auto;
       box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
     }
     .log-entry { margin-bottom: 4px; color: #94a3b8; }
-    .log-hit-x { color: #34d399; font-weight: bold; font-size: 0.85rem; }
-    .log-hit-r { color: #fbbf24; font-weight: bold; font-size: 0.85rem; }
+    .log-hit-x { color: #34d399; font-weight: bold; font-size: 0.82rem; }
+    .log-hit-r { color: #fbbf24; font-weight: bold; font-size: 0.82rem; }
   </style>
 </head>
 <body>
 
-  <div class="header-title">RADAR RECEPTOR RADIAL v4.0</div>
+  <div class="header-title">RADAR RECEPTOR RADIAL v5.0</div>
   <div class="status-badge" id="hudStatus">SISTEMA EN VIVO // OÍDO FINO ACTIVO</div>
 
   <div class="radar-container">
@@ -156,12 +156,12 @@
   <button class="btn-toggle" id="btnRadar" onclick="toggleRadar()">ACTIVAR ESCUCHA RADIAL</button>
 
   <div class="live-speech-box">
-    <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 700;">🎤 MODULACIÓN EN VIVO:</span>
+    <span style="font-size: 0.7rem; color: #94a3b8; font-weight: 700;">🎤 MODULACIÓN EN VIVO:</span>
     <span id="txtVozDetectada" style="color: #fef08a; font-weight: bold;">(En silencio)</span>
   </div>
 
   <div class="console-box" id="consoleLogs">
-    <div class="log-entry">> Radar v4.0 listo con separador de palabras pegadas.</div>
+    <div class="log-entry">> Radar v5.0 listo con transmisor dual activo.</div>
   </div>
 
   <script>
@@ -225,7 +225,7 @@
         document.getElementById('btnRadar').classList.add('active');
         document.getElementById('radarSweep').style.display = 'block';
         document.getElementById('equalizer').style.display = 'flex';
-        log("Frecuencia sintonizada. Acerque la radio.");
+        log("Frecuencia radial abierta. Modulando...");
       };
 
       recognition.onresult = function(event) {
@@ -277,32 +277,38 @@
     }
 
     // =======================================================================
-    // MOTOR DE OÍDO FINO Y DESPEGADOR DE PALABRAS
+    // MOTOR DE OÍDO FINO CON CORRECCIÓN FONÉTICA RADIAL
     // =======================================================================
     function procesarVozRadio(fraseOriginal) {
-      // 1. Detectar Clave 20-28 (Refrigerio)
+      // 1. Clave 20-28 (Refrigerio)
       const esRefrigerio = /20[- ]?28|veinte\s*veintiocho|veinte\s*28|refrigerio|almuerzo|cena/.test(fraseOriginal);
 
       let t = (" " + fraseOriginal.toLowerCase() + " ");
 
-      // 2. DESPEGAR PALABRAS MILITARES CUANDO SE HABLA RÁPIDO
-      // Ej: "zuludos" -> "zulu dos", "tangoocho" -> "tango ocho", "golfunoa" -> "golf 1 a"
+      // 2. CORREGIR PALABRAS QUE EL MIC CONFUNDE POR DISTORSIÓN DE RADIO
+      t = t
+        // Confusiones comunes de TANGO
+        .replace(/\btengo\b|\btambo\b|\bdango\b|\btando\b|\btanke\b|\btanques\b|\btaco\b/g, " tango ")
+        // Confusiones comunes de YANKI
+        .replace(/\bllanqui\b|\bllanki\b|\byankee\b|\bianqui\b|\byanky\b/g, " yanki ")
+        // Confusiones comunes de ZULU
+        .replace(/\bsulu\b|\bzulo\b|\bsulú\b|\bsolo\b/g, " zulu ");
+
+      // 3. DESPEGAR PALABRAS Y NÚMEROS PEGADOS
       const prefijos = [
-        "zulu", "sulu", "zulo", "tango", "orion", "yanki", "yankee", "yanky",
-        "golf", "foxtrot", "alfa", "alpha", "bravo", "charly", "charlie", "delta",
-        "accesos", "balanza", "muelle"
+        "zulu", "tango", "orion", "yanki", "golf", "foxtrot",
+        "alfa", "bravo", "charly", "delta", "accesos", "balanza", "muelle"
       ];
 
       prefijos.forEach(p => {
-        // Separa si viene pegado a números o letras (ej: zuludos -> zulu dos)
         const reg = new RegExp("(" + p + ")(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieciseis|diecisiete|dieciocho|diecinueve|veinte|[0-9]+|[a-z])", "gi");
         t = t.replace(reg, "$1 $2");
       });
 
-      // Separa letras de números (ej: 3a -> 3 a, 1a -> 1 a, 2alfa -> 2 alfa)
+      // Despegar números y letras (ej: 3a -> 3 a, 1a -> 1 a)
       t = t.replace(/(\d+)([a-z]+)/gi, "$1 $2").replace(/([a-z]+)(\d+)/gi, "$1 $2");
 
-      // 3. MAPEO DE NÚMEROS A DÍGITOS
+      // 4. MAPEO DE NÚMEROS
       const mapaNumeros = {
         "cero uno": "1", "primero": "1", "primer": "1", "uno": "1",
         "cero dos": "2", "segundo": "2", "dos": "2",
@@ -322,54 +328,32 @@
         t = t.replace(new RegExp("\\b" + pal + "\\b", "gi"), " " + num + " ");
       }
 
-      // 4. MAPEO FONÉTICO OTAN
+      // 5. MAPEO OTAN
       const mapaOtan = {
-        "alfa": "A", "alpha": "A",
-        "bravo": "B",
-        "charly": "C", "charlie": "C", "charli": "C",
-        "delta": "D",
-        "echo": "E", "eco": "E",
-        "foxtrot": "FOXTROT", "fox": "FOXTROT",
-        "golf": "GOLF",
-        "hotel": "H",
-        "india": "I",
-        "oscar": "O",
-        "papa": "P",
-        "sierra": "S",
-        "tango": "TANGO",
-        "victor": "V",
-        "yankee": "YANKI", "yanky": "YANKI", "ianqui": "YANKI", "yanki": "YANKI",
-        "sulu": "ZULU", "zulo": "ZULU", "sulú": "ZULU", "zulu": "ZULU"
+        "alfa": "A", "alpha": "A", "bravo": "B",
+        "charly": "C", "charlie": "C", "charli": "C", "delta": "D",
+        "foxtrot": "FOXTROT", "fox": "FOXTROT", "golf": "GOLF"
       };
 
       for (const [otan, letra] of Object.entries(mapaOtan)) {
         t = t.replace(new RegExp("\\b" + otan + "\\b", "gi"), " " + letra + " ");
       }
 
-      // Cadena compacta limpia para cruzar contra cualquier patrón (ej: "ZULU2", "TANGO8", "GOLF1A", "GOLFR")
       const compacta = t.toUpperCase().replace(/[^A-Z0-9]/g, "");
 
-      // 5. CATÁLOGO MAESTRO DE PATRONES (CUBRE TODA TU TABLA)
+      // 6. CATÁLOGO DE PATRONES DE PUESTOS
       const patrones = [
-        // ZULUS
         "ZULU 1", "ZULU 2",
-        // TANGOS (1 al 20)
         "TANGO 1", "TANGO 2", "TANGO 3", "TANGO 4", "TANGO 5",
         "TANGO 6", "TANGO 7", "TANGO 8", "TANGO 9", "TANGO 10",
         "TANGO 11", "TANGO 12", "TANGO 13", "TANGO 14", "TANGO 15",
         "TANGO 16", "TANGO 17", "TANGO 18", "TANGO 19", "TANGO 20",
-        // GOLF (Filas 46, 47, 50)
-        "GOLF 1A", "GOLF R", "GOLF",
-        // FOXTROT (Fila 49)
-        "FOXTROT",
-        // YANKIS
+        "GOLF 1A", "GOLF R", "GOLF", "FOXTROT",
         "YANKI 1", "YANKI 2", "YANKI 2A", "YANKI 2 ALFA", "YANKI 3", "YANKI 3A", "YANKI 4",
-        // ORION
         "ORION A", "ORION B", "ORION C", "ORION D",
-        // ACCESOS, BALANZAS Y MUELLES
         "ACCESOS 02", "ACCESOS DOCUMENTACION 1", "ACCESOS DOCUMENTACION 2",
         "ACCESOS INGRESOS", "ACCESOS", "COORDINADOR PROSEGUR",
-        "SUR", "CENTRO", "NORTE", "BALANZA 1", "BALANZA 2", "BALANZA 3"
+        "SUR", "CENTRO", "NORTE"
       ];
 
       const ahora = Date.now();
@@ -385,13 +369,23 @@
           const valor = esRefrigerio ? 'R' : 'X';
           log(`🎯 RECONOCIDO: ${patron} ➔ [${valor}]`, esRefrigerio ? 'log-hit-r' : 'log-hit-x');
 
-          // ENVIAR SEÑAL A GOOGLE APPS SCRIPT
+          // TRANSMISIÓN MULTI-CANAL PARA ATRAVESAR EL IFRAME DE GOOGLE
+          const payload = {
+            tipo: 'HIT_RADIO_PATRON',
+            patron: patron,
+            esRefrigerio: esRefrigerio,
+            ts: ahora
+          };
+
+          // Canal 1: postMessage directo
           if (window.opener) {
-            window.opener.postMessage({
-              tipo: 'HIT_RADIO_PATRON',
-              patron: patron,
-              esRefrigerio: esRefrigerio
-            }, '*');
+            window.opener.postMessage(payload, '*');
+          }
+          // Canal 2: postMessage a marcos internos
+          if (window.opener && window.opener.frames) {
+            for (let i = 0; i < window.opener.frames.length; i++) {
+              try { window.opener.frames[i].postMessage(payload, '*'); } catch(e) {}
+            }
           }
         }
       });
